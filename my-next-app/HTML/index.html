@@ -14,11 +14,12 @@
         #menu {
             width: 144px;
             height: 767px;
-            top: 160px;
-            left: 646px;
+            top: 10px;
+            left: 10px;
             padding: 10px;
             border-right: 1px solid #A5A5A5;
-            /* 변경: 오른쪽에 선 추가 */
+            position: fixed;
+            /* 수정: 상단에 고정 */
         }
 
         .student-list {
@@ -49,24 +50,31 @@
         #content {
             flex-grow: 1;
             padding: 10px;
+            position: relative;
+            margin-left: 164px;
+            /* 수정: 메뉴 폭 고려하여 왼쪽 여백 추가 */
         }
 
         .student-info {
             width: 500px;
             height: 303px;
-            top: 153px;
-            left: 823px;
             text-align: left;
-            /* 변경: 오른쪽 정렬에서 왼쪽 정렬로 변경 */
         }
 
-        .student-info h2 {
+        #introduction {
+            /* 소개 스타일링을 위한 추가된 부분 */
+            margin-bottom: 20px;
+        }
+
+        #advantages {
+            /* 장점 스타일링을 위한 추가된 부분 */
+        }
+
+        .student-info h2,
+        .student-info h3 {
             font-family: Inter;
-            font-size: 32px;
             font-weight: 400;
-            line-height: 39px;
-            letter-spacing: 0em;
-            text-align: left;
+            line-height: 1.2;
             margin-top: 0;
         }
 
@@ -80,14 +88,39 @@
             margin: 0;
         }
 
-        .student-info h3 {
-            font-family: Inter;
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 29px;
-            letter-spacing: 0em;
-            text-align: left;
-            margin-top: 0;
+        #search-bar {
+            width: 500px;
+            height: 32px;
+            position: absolute;
+            top: 500px;
+            left: 10px;
+            border-radius: 10px;
+        }
+
+        #search-input {
+            width: calc(100% - 16px);
+            padding: 8px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            border: 1px solid #A5A5A5;
+            border-radius: 10px;
+            left: 10px;
+        }
+
+        #show-button {
+            width: 500px;
+            height: 64px;
+            position: absolute;
+            top: 52px;
+            left: 10px;
+            border-radius: 10px;
+            background: #9191914D;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
         }
     </style>
 </head>
@@ -116,12 +149,39 @@
     </div>
 
     <div id="content">
+        <!-- 선택한 학생에 대한 정보가 여기에 표시됨 -->
         <div class="student-info">
-            <!-- 선택한 학생에 대한 정보가 여기에 표시됨 -->
+            <div id="introduction">
+                <!-- 소개 기본 값 -->
+                <h2>학생 소개</h2>
+                <p>
+                    <!-- 내용 추가 될 영역-->
+                </p>
+            </div>
+            <div id="advantages">
+                <!-- 장점 기본 값 -->
+                <h3>장점</h3>
+                <p>
+                    <!-- 내용 추가 될 영역-->
+                </p>
+            </div>
+        </div>
+
+        <div id="search-bar">
+            <input type="text" id="search-input" placeholder="Write your name." />
+            <button id="show-button" onclick="searchAndShow()">Show</button>
         </div>
     </div>
 
     <script>
+        // 페이지 로딩 시 초기 선택 학생 설정
+        document.addEventListener("DOMContentLoaded", function () {
+            const initialSelectedStudent = document.querySelector('.student-list-item:contains("신동현")');
+            if (initialSelectedStudent) {
+                initialSelectedStudent.click();
+            }
+        });
+
         function selectStudent(event) {
             const selectedItem = event.target;
             if (selectedItem.classList.contains("student-list-item")) {
@@ -132,12 +192,34 @@
 
                 const studentInfo = document.querySelector(".student-info");
                 studentInfo.innerHTML = `
-                    ${selectedItem.textContent} 소개
+                    <div id="introduction">
+                        <h2>${selectedItem.textContent} 소개</h2>
                     <p>Lorem ipsum dolor sit amet consectetur. Mauris vitae nullam suspendisse ut amet quis nibh pellentesque. Non ut neque pellentesque nisl imperdiet turpis nulla ut. Ut id massa eu eu rhoncus elementum adipiscing metus. Mi risus nulla phasellus nisl molestie dignissim risus arcu elementum. Habitasse tortor tempus sed enim lectus duis volutpat. Pellentesque lacinia suspendisse sit malesuada sit a faucibus sed mattis. Egestas mauris id mattis id pulvinar nunc euismod id diam. Amet amet aliquet pharetra sed nam ipsum aenean dis tempor. Nisl in egestas cursus sagittis sed in integer. Sed sed cursus tempor porttitor. Cras viverra arcu sed laoreet volutpat enim sem sapien. Est nibh velit eu ipsum praesent vitae vestibulum aliquam.<br>
                     Sagittis nisi faucibus libero luctus tincidunt. Porttitor laoreet tellus maecenas tempor. Vehicula ut vulputate lorem congue. Eget dignissim aliquam integer tincidunt massa nulla duis mauris. Pellentesque aenean sit mauris morbi.<br>
                     Dolor non aliquam elit risus elementum dictumst. Eu egestas turpis diam dictum. Dictumst leo senectus velit porta. Pretium tortor velit nulla sit ipsum vel sagittis. Eget elit donec sed amet vel in mattis aenean nibh. Fermentum et ac purus diam sit erat in vitae tellus. In at sit ornare fermentum. Risus blandit amet eget id.</p>
-                    ${selectedItem.textContent} 장점
-                    <p>Lorem ipsum dolor sit amet consectetur. Consectetur morbi fames in id sit turpis eget lectus ut. Neque orci hendrerit scelerisque nam ac ac eu dui urna. Aliquet vulputate tortor odio ut. Turpis nam sagittis non iaculis. Eu purus mollis cursus sagittis sit. Tempor tempor tincidunt ac in. Ullamcorper eros ullamcorper tincidunt sagittis. Libero massa nec gravida libero. Volutpat orci bibendum morbi porta mauris pellentesque. Natoque gravida at penatibus vestibulum purus tristique mollis imperdiet amet. Sed magna dignissim luctus cras nulla. Ultrices sapien sed quis consectetur turpis fusce sem facilisis eget.</p>`;
+                    </div>
+                    <div id="advantages">
+                        <h3>${selectedItem.textContent} 장점</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur. Consectetur morbi fames in id sit turpis eget lectus ut. Neque orci hendrerit scelerisque nam ac ac eu dui urna. Aliquet vulputate tortor odio ut. Turpis nam sagittis non iaculis. Eu purus mollis cursus sagittis sit. Tempor tempor tincidunt ac in. Ullamcorper eros ullamcorper tincidunt sagittis. Libero massa nec gravida libero. Volutpat orci bibendum morbi porta mauris pellentesque. Natoque gravida at penatibus vestibulum purus tristique mollis imperdiet amet. Sed magna dignissim luctus cras nulla. Ultrices sapien sed quis consectetur turpis fusce sem facilisis eget.
+                        </p>
+                    </div>`;
+            }
+        }
+
+        function searchAndShow() {
+            const searchInput = document.getElementById("search-input").value;
+            const listItems = document.querySelectorAll(".student-list-item");
+            let found = false;
+
+            listItems.forEach(item => {
+                if (item.textContent.includes(searchInput)) {
+                    item.click();
+                    found = true;
+                }
+            });
+
+            if (!found) {
+                alert("No matching student found.");
             }
         }
     </script>
