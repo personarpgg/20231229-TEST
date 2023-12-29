@@ -11,9 +11,34 @@
         }
 
         #menu {
-            /* 변경: 박스 스타일 제거 */
             width: auto;
             padding: 10px;
+            border-right: 1px solid #A5A5A5; /* 변경: 오른쪽에 선 추가 */
+        }
+
+        .student-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .student-list-item {
+            cursor: pointer;
+            margin-bottom: 5px;
+            font-family: Inter;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 15px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: #353535;
+        }
+
+        .student-list-item.selected {
+            color: #000000;
+        }
+
+        .student-list-item.selected::before {
+            content: "● ";
         }
 
         #content {
@@ -21,59 +46,61 @@
             padding: 10px;
         }
 
-        .student-list {
-            list-style-type: none;
-            padding: 0;
-            /* 변경: 텍스트 오른쪽 정렬 */
-            text-align: right;
-        }
-
-        .student-list-item {
-            cursor: pointer;
-            margin-bottom: 5px;
-            color: #353535;
-        }
-
-        .student-list-item.selected {
-            color: #000000;
-            background-color: #f2f2f2;
-            /* 변경: 선택한 경우 왼쪽에 점으로 구분 */
-            padding-left: 5px;
-        }
-
         .student-info {
-            text-align: right;
+            text-align: left; /* 변경: 오른쪽 정렬에서 왼쪽 정렬로 변경 */
         }
 
         .student-info h2 {
+            font-family: Inter;
+            font-size: 32px;
+            font-weight: 400;
+            line-height: 39px;
+            letter-spacing: 0em;
+            text-align: left;
             margin-top: 0;
         }
 
         .student-info p {
+            font-family: Inter;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 15px;
+            letter-spacing: 0em;
+            text-align: justified;
             margin: 0;
+        }
+
+        .student-info h3 {
+            font-family: Inter;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 29px;
+            letter-spacing: 0em;
+            text-align: left;
+            margin-top: 0;
         }
     </style>
 </head>
 <body>
     <div id="menu">
-        <ul class="student-list">
-            <li class="student-list-item" onclick="selectStudent(this)">김우진</li>
-            <li class="student-list-item" onclick="selectStudent(this)">김현</li>
-            <li class="student-list-item" onclick="selectStudent(this)">방승희</li>
-            <li class="student-list-item" onclick="selectStudent(this)">변호녕</li>
-            <li class="student-list-item" onclick="selectStudent(this)">소사무엘</li>
-            <li class="student-list-item" onclick="selectStudent(this)">송영준</li>
-            <li class="student-list-item" onclick="selectStudent(this)">신동현</li>
-            <li class="student-list-item" onclick="selectStudent(this)">오승민</li>
-            <li class="student-list-item" onclick="selectStudent(this)">유승민</li>
-            <li class="student-list-item" onclick="selectStudent(this)">윤준현</li>
-            <li class="student-list-item" onclick="selectStudent(this)">이민구</li>
-            <li class="student-list-item" onclick="selectStudent(this)">이유안</li>
-            <li class="student-list-item" onclick="selectStudent(this)">이채이</li>
-            <li class="student-list-item" onclick="selectStudent(this)">정영식</li>
-            <li class="student-list-item" onclick="selectStudent(this)">최성민</li>
-            <li class="student-list-item" onclick="selectStudent(this)">최은철</li>
-            <li class="student-list-item" onclick="selectStudent(this)">홍문기</li>
+        <ul class="student-list" onclick="selectStudent(event)">
+            <li class="student-list-item">김우진</li>
+            <li class="student-list-item">김현</li>
+            <li class="student-list-item">방승희</li>
+            <li class="student-list-item">변호녕</li>
+            <li class="student-list-item">소사무엘</li>
+            <li class="student-list-item">송영준</li>
+            <li class="student-list-item">신동현</li>
+            <li class="student-list-item">오승민</li>
+            <li class="student-list-item">유승민</li>
+            <li class="student-list-item">윤준현</li>
+            <li class="student-list-item">이민구</li>
+            <li class="student-list-item">이유안</li>
+            <li class="student-list-item">이채이</li>
+            <li class="student-list-item">정영식</li>
+            <li class="student-list-item">최성민</li>
+            <li class="student-list-item">최은철</li>
+            <li class="student-list-item">홍문기</li>
         </ul>
     </div>
 
@@ -85,21 +112,22 @@
     </div>
 
     <script>
-        function selectStudent(selectedItem) {
-            var listItems = document.querySelectorAll(".student-list-item");
-            listItems.forEach(function(item) {
-                item.classList.remove("selected");
-            });
+        function selectStudent(event) {
+            var selectedItem = event.target;
+            if (selectedItem.classList.contains("student-list-item")) {
+                var listItems = document.querySelectorAll(".student-list-item");
+                listItems.forEach(function(item) {
+                    item.classList.remove("selected");
+                });
 
-            selectedItem.classList.add("selected");
+                selectedItem.classList.add("selected");
 
-            var studentInfo = document.querySelector(".student-info");
-            studentInfo.innerHTML = "<h2 style='text-align: right;'>" + selectedItem.textContent + "</h2>" +
-                                    "<hr>" +
-                                    "<p>학생 소개 제목</p>" +
-                                    "<p>학생 소개 내용</p>" +
-                                    "<p>학생 장점 타이틀</p>" +
-                                    "<p>학생 장점 내용</p>";
+                var studentInfo = document.querySelector(".student-info");
+                studentInfo.innerHTML = "<h2>" + selectedItem.textContent + " 소개</h2>" +
+                                        "<p>학생 소개 내용</p>" +
+                                        "<h3>" + selectedItem.textContent + " 장점</h3>" +
+                                        "<p>학생 장점 내용</p>";
+            }
         }
     </script>
 </body>
