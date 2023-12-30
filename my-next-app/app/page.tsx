@@ -1,6 +1,6 @@
 // pages/index.js
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StudentList from './components/StudentList';
 import StudentInfo from './components/StudentInfo';
 import SearchBar from './components/SearchBar';
@@ -26,7 +26,22 @@ const students = [
 ];
 
 const Home = () => {
+  const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState('신동현');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/data.json');
+        const data = await response.json();
+        setStudents(data.students);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const onSelectStudent = (event) => {
     const selectedItem = event.target;
