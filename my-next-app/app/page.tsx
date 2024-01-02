@@ -46,6 +46,9 @@ const Home = () => {
         <StudentList students={students} onSelectStudent={onSelectStudent} selectedStudent={selectedStudent} />
       </div>
 
+      {/* 선 추가 부분 */}
+      <div id="line" ></div>
+
       {/* 오른쪽 내용 영역 */}
       <div id="content">
         <StudentInfo name={selectedStudent} />
