@@ -42,12 +42,12 @@ const Home = () => {
   return (
     <div style={{ display: 'flex' }}>
       {/* 왼쪽 메뉴 */}
-      <div id="menu" style={{ borderRight: '1px solid #ccc', padding: '10px' }}>
+      <div id="menu">
         <StudentList students={students} onSelectStudent={onSelectStudent} selectedStudent={selectedStudent} />
       </div>
 
       {/* 오른쪽 내용 영역 */}
-      <div id="content" style={{ flexGrow: 1, padding: '10px', marginLeft: '164px' }}>
+      <div id="content">
         <StudentInfo name={selectedStudent} />
         <SearchBar onSearch={onSearch} />
       </div>
