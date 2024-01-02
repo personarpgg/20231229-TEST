@@ -1,5 +1,6 @@
 // page.tsx
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import StudentList from './components/StudentList';
 import StudentInfo from './components/StudentInfo';
@@ -7,7 +8,7 @@ import SearchBar from './components/SearchBar';
 
 const Home = () => {
   const [students, setStudents] = useState([]);
-  const [selectedStudent, setSelectedStudent] = useState('신동현');
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,11 +24,8 @@ const Home = () => {
     fetchData();
   }, []);
 
-  const onSelectStudent = (event) => {
-    const selectedItem = event.target;
-    if (selectedItem.classList.contains('student-list-item')) {
-      setSelectedStudent(selectedItem.textContent);
-    }
+  const onSelectStudent = (selectedStudent) => {
+    setSelectedStudent(selectedStudent);
   };
 
   const onSearch = () => {
@@ -45,7 +43,7 @@ const Home = () => {
     <div style={{ display: 'flex' }}>
       {/* 왼쪽 메뉴 */}
       <div id="menu" style={{ borderRight: '1px solid #ccc', padding: '10px' }}>
-        <StudentList students={students} onSelectStudent={onSelectStudent} />
+        <StudentList students={students} onSelectStudent={onSelectStudent} selectedStudent={selectedStudent} />
       </div>
 
       {/* 오른쪽 내용 영역 */}
