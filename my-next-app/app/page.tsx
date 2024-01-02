@@ -1,29 +1,9 @@
-// pages/index.js
-'use client'
+// page.tsx
+'use client';
 import React, { useState, useEffect } from 'react';
 import StudentList from './components/StudentList';
 import StudentInfo from './components/StudentInfo';
 import SearchBar from './components/SearchBar';
-
-const students = [
-  '김우진',
-  '김현',
-  '방승희',
-  '변호녕',
-  '소사무엘',
-  '송영준',
-  '신동현',
-  '오승민',
-  '유승민',
-  '윤준현',
-  '이민구',
-  '이유안',
-  '이채이',
-  '정영식',
-  '최성민',
-  '최은철',
-  '홍문기',
-];
 
 const Home = () => {
   const [students, setStudents] = useState([]);
@@ -63,10 +43,12 @@ const Home = () => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <div id="menu">
+      {/* 왼쪽 메뉴 */}
+      <div id="menu" style={{ borderRight: '1px solid #ccc', padding: '10px' }}>
         <StudentList students={students} onSelectStudent={onSelectStudent} />
       </div>
 
+      {/* 오른쪽 내용 영역 */}
       <div id="content" style={{ flexGrow: 1, padding: '10px', marginLeft: '164px' }}>
         <StudentInfo name={selectedStudent} />
         <SearchBar onSearch={onSearch} />
